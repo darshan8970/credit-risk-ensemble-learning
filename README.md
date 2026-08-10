@@ -33,14 +33,34 @@ Dataset preparation and validation are implemented as part of the machine learni
 
 ## Project Structure
 
-The repository is being developed incrementally with separate components for:
+The repository is organized into separate components for different stages of the machine learning workflow:
 
-- Data processing
-- Machine learning models
-- Evaluation
-- Reports
-- Visualization
-- Application interface
+- `src/` – Core machine learning and data processing modules
+- `data/` – Dataset files and processed data
+- `models/` – Trained model artifacts
+- `reports/` – Evaluation results and generated reports
+- `assets/` – Supporting project assets
+- `requirements.txt` – Python dependencies
+- `LICENSE` – Project license
+
+## ML Workflow
+
+The project follows a structured machine learning workflow:
+
+1. **Data Ingestion** – Loads the German Credit dataset.
+2. **Data Preprocessing** – Separates features and target, scales numerical features, and encodes categorical features.
+3. **Model Training** – Trains and tunes Random Forest, Bagging, and AdaBoost classifiers.
+4. **Model Evaluation** – Compares model performance using classification metrics.
+5. **Statistical Analysis** – Performs hypothesis testing to compare model performance.
+6. **Results & Artifacts** – Generates evaluation results and stores project artifacts.
+
+## How to Run
+
+Install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+
 
 ## Status
 
