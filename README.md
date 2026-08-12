@@ -61,6 +61,14 @@ Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 
+## Testing
+
+The project includes automated tests for the data loading, preprocessing, model configuration, and evaluation components.
+
+Run the complete test suite with:
+
+```bash
+python -m pytest tests/
 
 ## Status
 
