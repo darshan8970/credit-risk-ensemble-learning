@@ -79,9 +79,8 @@ venv.bak/
 ehthumbs.db
 Thumbs.db
 
-# Output artifacts (keep directory structure with .gitkeep)
-# Uncomment if you wish to exclude generated models/plots from git
-# models/*.joblib
-# assets/*.png
-# reports/*.json
-# reports/*.csv
+# Generated ML artifacts
+models/*.joblib
+assets/*.png
+reports/*.json
+reports/*.csv
