@@ -33,15 +33,24 @@ Dataset preparation and validation are implemented as part of the machine learni
 
 ## Project Structure
 
-The repository is organized into separate components for different stages of the machine learning workflow:
-
-- `src/` – Core machine learning and data processing modules
-- `data/` – Dataset files and processed data
-- `models/` – Trained model artifacts
-- `reports/` – Evaluation results and generated reports
-- `assets/` – Supporting project assets
-- `requirements.txt` – Python dependencies
-- `LICENSE` – Project license
+```text
+credit-risk-ensemble-learning/
+├── assets/                 # Generated visualizations
+├── data/                   # Dataset files
+├── models/                 # Saved preprocessing/model artifacts
+├── reports/                # Evaluation results and reports
+├── src/
+│   ├── config.py           # Project configuration and model parameters
+│   ├── data_loader.py      # Dataset loading and validation
+│   ├── preprocessing.py    # Feature preprocessing and transformation
+│   ├── train.py            # Model training and hyperparameter tuning
+│   ├── evaluate.py         # Model performance evaluation
+│   └── hypothesis_testing.py # Statistical model comparison
+├── tests/                  # Automated tests
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
 
 ## ML Workflow
 
