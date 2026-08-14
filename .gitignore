@@ -84,3 +84,11 @@ models/*.joblib
 assets/*.png
 reports/*.json
 reports/*.csv
+
+# Local dataset files
+data/raw/*
+data/processed/*
+
+# Keep dataset directory structure
+!data/raw/.gitkeep
+!data/processed/.gitkeep
