@@ -1,5 +1,5 @@
-from src.train import train_and_tune_models
+import main
 
 
-def test_training_function_is_available():
-    assert callable(train_and_tune_models)
+def test_main_module_imports():
+    assert callable(main.main)
