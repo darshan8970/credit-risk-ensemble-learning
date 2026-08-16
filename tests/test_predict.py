@@ -6,7 +6,7 @@ from src.predict import predict_credit_risk
 
 class MockModel:
     def predict(self, X):
-        return np.array([1])
+        return np.ones(len(X), dtype=int)
 
 
 def test_predict_credit_risk():
@@ -25,3 +25,16 @@ def test_load_model_raises_error_for_missing_model(tmp_path, monkeypatch):
         from src.predict import load_model
 
         load_model("nonexistent_model")
+
+def test_predict_credit_risk_with_multiple_samples():
+    model = MockModel()
+
+    features = [
+        [1, 10],
+        [2, 20],
+        [3, 30],
+    ]
+
+    prediction = predict_credit_risk(model, features)
+
+    assert prediction.tolist() == [1, 1, 1]
