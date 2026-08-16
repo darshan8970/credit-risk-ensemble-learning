@@ -43,3 +43,28 @@ def predict_credit_risk(model, features):
         features = features.reshape(1, -1)
 
     return model.predict(features)
+
+
+def interpret_credit_risk(prediction):
+    """
+    Convert a numeric credit-risk prediction into a readable label.
+
+    Parameters:
+        prediction: Numeric prediction returned by a classification model.
+
+    Returns:
+        Human-readable credit-risk label.
+    """
+    prediction = int(np.asarray(prediction).ravel()[0])
+
+    labels = {
+        0: "Non-Default",
+        1: "Default",
+    }
+
+    if prediction not in labels:
+        raise ValueError(
+            f"Unsupported credit-risk prediction: {prediction}"
+        )
+
+    return labels[prediction]
