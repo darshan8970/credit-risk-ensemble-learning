@@ -39,6 +39,9 @@ def predict_credit_risk(model, features):
     """
     features = np.asarray(features)
 
+    if features.size == 0:
+        raise ValueError("Prediction features cannot be empty.")
+
     if features.ndim == 1:
         features = features.reshape(1, -1)
 

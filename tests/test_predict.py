@@ -38,3 +38,9 @@ def test_interpret_credit_risk():
 def test_interpret_credit_risk_rejects_unknown_label():
     with pytest.raises(ValueError, match="Unsupported credit-risk prediction"):
         interpret_credit_risk([2])
+
+def test_predict_credit_risk_rejects_empty_input():
+    model = MockModel()
+
+    with pytest.raises(ValueError, match="Prediction features cannot be empty"):
+        predict_credit_risk(model, [])
