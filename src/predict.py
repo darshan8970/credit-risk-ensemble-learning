@@ -71,3 +71,23 @@ def interpret_credit_risk(prediction):
         )
 
     return labels[prediction]
+
+def predict_from_saved_model(model_name: str, features):
+    """
+    Load a saved model and generate a human-readable credit-risk prediction.
+
+    Parameters:
+        model_name: Name of the saved model file without .joblib.
+        features: Input feature array.
+
+    Returns:
+        Dictionary containing the numeric prediction and readable risk label.
+    """
+    model = load_model(model_name)
+    prediction = predict_credit_risk(model, features)
+    risk_label = interpret_credit_risk(prediction)
+
+    return {
+        "prediction": int(np.asarray(prediction).ravel()[0]),
+        "risk_label": risk_label,
+    }

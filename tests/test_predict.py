@@ -1,10 +1,12 @@
 import numpy as np
 import pytest
+import joblib
 
 from src.predict import (
     predict_credit_risk,
     load_model,
     interpret_credit_risk,
+    predict_from_saved_model,
 )
 
 
@@ -44,3 +46,20 @@ def test_predict_credit_risk_rejects_empty_input():
 
     with pytest.raises(ValueError, match="Prediction features cannot be empty"):
         predict_credit_risk(model, [])
+
+def test_predict_from_saved_model(tmp_path, monkeypatch):
+    model_path = tmp_path / "test_model.joblib"
+
+    joblib.dump(MockModel(), model_path)
+
+    monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
+
+    result = predict_from_saved_model(
+        "test_model",
+        [1, 10],
+    )
+
+    assert result == {
+        "prediction": 1,
+        "risk_label": "Default",
+    }
