@@ -14,6 +14,9 @@ class MockModel:
     def predict(self, X):
         return np.ones(len(X), dtype=int)
 
+class InvalidPredictionModel:
+    def predict(self, X):
+        return np.array([2])
 
 def test_predict_credit_risk():
     model = MockModel()
@@ -63,3 +66,21 @@ def test_predict_from_saved_model(tmp_path, monkeypatch):
         "prediction": 1,
         "risk_label": "Default",
     }
+
+def test_predict_from_saved_model_rejects_invalid_prediction(
+    tmp_path, monkeypatch
+):
+    model_path = tmp_path / "invalid_model.joblib"
+
+    joblib.dump(InvalidPredictionModel(), model_path)
+
+    monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
+
+    with pytest.raises(
+        ValueError,
+        match="Unsupported credit-risk prediction"
+    ):
+        predict_from_saved_model(
+            "invalid_model",
+            [1, 10],
+        )
