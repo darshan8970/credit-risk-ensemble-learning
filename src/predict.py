@@ -1,5 +1,5 @@
 import os
-from typing import Any
+from typing import Any, Literal
 
 import joblib
 import numpy as np
@@ -7,6 +7,11 @@ from numpy.typing import NDArray
 
 from src.config import MODELS_DIR
 
+MODEL_NAMES = Literal[
+    "random_forest_model",
+    "bagging_model",
+    "adaboost_model",
+]
 
 def load_model(model_name: str) -> Any:
     """
