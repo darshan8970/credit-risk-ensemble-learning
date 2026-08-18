@@ -123,3 +123,21 @@ def test_predict_batch_from_saved_model(tmp_path, monkeypatch):
         {"prediction": 1, "risk_label": "Default"},
         {"prediction": 1, "risk_label": "Default"},
     ]
+
+def test_predict_batch_from_saved_model_rejects_empty_input(
+    tmp_path, monkeypatch
+):
+    model_path = tmp_path / "test_model.joblib"
+
+    joblib.dump(MockModel(), model_path)
+
+    monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
+
+    with pytest.raises(
+        ValueError,
+        match="Prediction features cannot be empty"
+    ):
+        predict_batch_from_saved_model(
+            "test_model",
+            [],
+        )
