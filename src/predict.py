@@ -36,6 +36,29 @@ def load_model(model_name: str) -> Any:
 
     return joblib.load(model_path)
 
+def list_saved_models() -> list[str]:
+    """
+    Return the names of saved model artifacts available
+    in the models directory.
+
+    Returns:
+        Sorted list of model names without the .joblib extension.
+    """
+    if not os.path.exists(MODELS_DIR):
+        return []
+
+    model_files = [
+        filename
+        for filename in os.listdir(MODELS_DIR)
+        if filename.endswith(".joblib")
+        and filename != "preprocessor.joblib"
+    ]
+
+    return sorted(
+        filename.removesuffix(".joblib")
+        for filename in model_files
+    )
+
 
 def predict_credit_risk(
     model: Any,

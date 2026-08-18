@@ -7,6 +7,7 @@ from src.predict import (
     load_model,
     interpret_credit_risk,
     predict_from_saved_model,
+    list_saved_models,
 )
 
 
@@ -84,3 +85,18 @@ def test_predict_from_saved_model_rejects_invalid_prediction(
             "invalid_model",
             [1, 10],
         )
+
+def test_list_saved_models(tmp_path, monkeypatch):
+    (tmp_path / "random_forest_model.joblib").touch()
+    (tmp_path / "bagging_model.joblib").touch()
+    (tmp_path / "adaboost_model.joblib").touch()
+    (tmp_path / "preprocessor.joblib").touch()
+    (tmp_path / "notes.txt").touch()
+
+    monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
+
+    assert list_saved_models() == [
+        "adaboost_model",
+        "bagging_model",
+        "random_forest_model",
+    ]
