@@ -141,3 +141,32 @@ def test_predict_batch_from_saved_model_rejects_empty_input(
             "test_model",
             [],
         )
+
+def test_list_saved_models_returns_empty_when_directory_missing(
+    tmp_path, monkeypatch
+):
+    missing_directory = tmp_path / "missing_models"
+
+    monkeypatch.setattr(
+        "src.predict.MODELS_DIR",
+        str(missing_directory)
+    )
+
+    assert list_saved_models() == []
+
+def test_list_saved_models_ignores_temporary_artifacts(
+    tmp_path, monkeypatch
+):
+    (tmp_path / "random_forest_model.joblib").touch()
+    (tmp_path / "~temporary_model.joblib").touch()
+    (tmp_path / ".hidden_model.joblib").touch()
+    (tmp_path / "notes.txt").touch()
+
+    monkeypatch.setattr(
+        "src.predict.MODELS_DIR",
+        str(tmp_path)
+    )
+
+    assert list_saved_models() == [
+        "random_forest_model"
+    ]

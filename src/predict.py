@@ -51,6 +51,8 @@ def list_saved_models() -> list[str]:
         filename
         for filename in os.listdir(MODELS_DIR)
         if filename.endswith(".joblib")
+        and not filename.startswith(".")
+        and not filename.startswith("~")
         and filename != "preprocessor.joblib"
     ]
 
