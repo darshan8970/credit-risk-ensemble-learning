@@ -140,3 +140,30 @@ def predict_from_saved_model(
         "prediction": int(np.asarray(prediction).ravel()[0]),
         "risk_label": risk_label,
     }
+
+def predict_batch_from_saved_model(
+    model_name: str,
+    features: NDArray
+) -> list[dict[str, Any]]:
+    """
+    Generate human-readable credit-risk predictions
+    for multiple input records.
+
+    Parameters:
+        model_name: Name of the saved model without .joblib.
+        features: Feature matrix containing multiple records.
+
+    Returns:
+        List of dictionaries containing numeric predictions
+        and readable risk labels.
+    """
+    model = load_model(model_name)
+    predictions = predict_credit_risk(model, features)
+
+    return [
+        {
+            "prediction": int(prediction),
+            "risk_label": interpret_credit_risk([prediction]),
+        }
+        for prediction in np.asarray(predictions).ravel()
+    ]

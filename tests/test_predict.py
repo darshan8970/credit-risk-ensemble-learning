@@ -8,6 +8,7 @@ from src.predict import (
     interpret_credit_risk,
     predict_from_saved_model,
     list_saved_models,
+    predict_batch_from_saved_model,
 )
 
 
@@ -99,4 +100,26 @@ def test_list_saved_models(tmp_path, monkeypatch):
         "adaboost_model",
         "bagging_model",
         "random_forest_model",
+    ]
+
+def test_predict_batch_from_saved_model(tmp_path, monkeypatch):
+    model_path = tmp_path / "test_model.joblib"
+
+    joblib.dump(MockModel(), model_path)
+
+    monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
+
+    result = predict_batch_from_saved_model(
+        "test_model",
+        [
+            [1, 10],
+            [2, 20],
+            [3, 30],
+        ],
+    )
+
+    assert result == [
+        {"prediction": 1, "risk_label": "Default"},
+        {"prediction": 1, "risk_label": "Default"},
+        {"prediction": 1, "risk_label": "Default"},
     ]
