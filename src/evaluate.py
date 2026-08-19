@@ -99,6 +99,18 @@ def evaluate_models(trained_models: dict, X_test: np.ndarray, y_test: pd.Series,
     print(metrics_df.to_string(index=False))
     print(f"\n[SAVED REPORTS] {csv_path} and {json_path}")
 
+    best_model = metrics_df.loc[
+        metrics_df["ROC-AUC"].idxmax(),
+        "Model"
+    ]
+
+    best_roc_auc = metrics_df["ROC-AUC"].max()
+
+    print(
+        f"\n[BEST MODEL] {best_model} "
+        f"with ROC-AUC = {best_roc_auc:.4f}"
+    )   
+
     # 2. Plot 1: Combined ROC-AUC Curves
     fig_roc, ax_roc = plt.subplots(figsize=(8, 6), dpi=300)
     for name, (fpr, tpr, auc_val) in roc_data.items():
