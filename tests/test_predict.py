@@ -9,6 +9,7 @@ from src.predict import (
     predict_from_saved_model,
     list_saved_models,
     predict_batch_from_saved_model,
+    get_model_path,
 )
 
 
@@ -178,3 +179,13 @@ def test_interpret_credit_risk_rejects_empty_prediction():
         match="Prediction cannot be empty"
     ):
         interpret_credit_risk([])
+
+def test_get_model_path(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        "src.predict.MODELS_DIR",
+        str(tmp_path)
+    )
+
+    expected_path = tmp_path / "random_forest_model.joblib"
+
+    assert get_model_path("random_forest_model") == str(expected_path)

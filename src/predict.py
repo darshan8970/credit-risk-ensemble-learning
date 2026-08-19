@@ -13,6 +13,19 @@ MODEL_NAMES = Literal[
     "adaboost_model",
 ]
 
+def get_model_path(model_name: str) -> str:
+    """
+    Return the filesystem path for a saved model.
+
+    Parameters:
+        model_name: Name of the saved model without .joblib.
+
+    Returns:
+        Full path to the saved model artifact.
+    """
+    filename = f"{model_name}.joblib"
+    return os.path.join(MODELS_DIR, filename)
+
 def load_model(model_name: str) -> Any:
     """
     Load a trained model from the models directory.
@@ -26,8 +39,7 @@ def load_model(model_name: str) -> Any:
     Raises:
         FileNotFoundError: If the requested model does not exist.
     """
-    filename = f"{model_name}.joblib"
-    model_path = os.path.join(MODELS_DIR, filename)
+    model_path = get_model_path(model_name)
 
     if not os.path.exists(model_path):
         raise FileNotFoundError(
@@ -111,7 +123,7 @@ def interpret_credit_risk(prediction: NDArray) -> str:
         raise ValueError("Prediction cannot be empty.")
 
     prediction = int(prediction_array[0])
-    
+
     labels = {
         0: "Non-Default",
         1: "Default",
