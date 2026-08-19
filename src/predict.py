@@ -1,5 +1,5 @@
 import os
-from typing import Any, Literal
+from typing import Any, Literal, get_args
 
 import joblib
 import numpy as np
@@ -47,13 +47,15 @@ def list_saved_models() -> list[str]:
     if not os.path.exists(MODELS_DIR):
         return []
 
+    supported_models = set(get_args(MODEL_NAMES))
+
     model_files = [
         filename
         for filename in os.listdir(MODELS_DIR)
         if filename.endswith(".joblib")
         and not filename.startswith(".")
         and not filename.startswith("~")
-        and filename != "preprocessor.joblib"
+        and filename.removesuffix(".joblib") in supported_models
     ]
 
     return sorted(

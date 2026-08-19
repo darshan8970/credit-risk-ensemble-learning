@@ -93,6 +93,7 @@ def test_list_saved_models(tmp_path, monkeypatch):
     (tmp_path / "adaboost_model.joblib").touch()
     (tmp_path / "preprocessor.joblib").touch()
     (tmp_path / "notes.txt").touch()
+    (tmp_path / "unknown_model.joblib").touch()
 
     monkeypatch.setattr("src.predict.MODELS_DIR", str(tmp_path))
 
