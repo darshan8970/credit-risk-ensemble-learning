@@ -171,3 +171,10 @@ def test_list_saved_models_ignores_temporary_artifacts(
     assert list_saved_models() == [
         "random_forest_model"
     ]
+
+def test_interpret_credit_risk_rejects_empty_prediction():
+    with pytest.raises(
+        ValueError,
+        match="Prediction cannot be empty"
+    ):
+        interpret_credit_risk([])

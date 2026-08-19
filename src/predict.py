@@ -105,8 +105,13 @@ def interpret_credit_risk(prediction: NDArray) -> str:
     Raises:
         ValueError: If the prediction is not 0 or 1.
     """
-    prediction = int(np.asarray(prediction).ravel()[0])
+    prediction_array = np.asarray(prediction).ravel()
 
+    if prediction_array.size == 0:
+        raise ValueError("Prediction cannot be empty.")
+
+    prediction = int(prediction_array[0])
+    
     labels = {
         0: "Non-Default",
         1: "Default",
