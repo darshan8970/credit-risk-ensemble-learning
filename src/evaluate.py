@@ -111,6 +111,15 @@ def evaluate_models(trained_models: dict, X_test: np.ndarray, y_test: pd.Series,
         f"with ROC-AUC = {best_roc_auc:.4f}"
     )   
 
+    with open(json_path, "r") as f:
+        report_data = json.load(f)
+
+    report_data["Best Model"] = best_model
+    report_data["Best ROC-AUC"] = round(best_roc_auc, 4)
+
+    with open(json_path, "w") as f:
+        json.dump(report_data, f, indent=4)
+
     # 2. Plot 1: Combined ROC-AUC Curves
     fig_roc, ax_roc = plt.subplots(figsize=(8, 6), dpi=300)
     for name, (fpr, tpr, auc_val) in roc_data.items():
