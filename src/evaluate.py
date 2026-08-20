@@ -174,7 +174,14 @@ def evaluate_models(trained_models: dict, X_test: np.ndarray, y_test: pd.Series,
     df_melted = metrics_df.melt(id_vars=["Model"], value_vars=["Accuracy", "Precision", "Recall", "F1-Score", "ROC-AUC"],
                                 var_name="Metric", value_name="Score")
     fig_bar, ax_bar = plt.subplots(figsize=(10, 6), dpi=300)
-    sns.barplot(data=df_melted, x="Metric", y="Score", hue="Model", palette=[colors["Random Forest"], colors["Bagging"], colors["AdaBoost"]], ax=ax_bar)
+    sns.barplot(
+        data=df_melted,
+        x="Metric",
+        y="Score",
+        hue="Model",
+        palette=[colors.get(model, "gray") for model in df_melted["Model"].unique()],
+        ax=ax_bar,
+    ) 
     ax_bar.set_ylim(0.0, 1.05)
     for p in ax_bar.patches:
         height = p.get_height()
