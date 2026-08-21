@@ -82,6 +82,9 @@ Thumbs.db
 # Generated ML artifacts
 models/*.joblib
 assets/*.png
+# README screenshots must be versioned so they render on GitHub.
+!assets/credit-risk-assessment.png
+!assets/model-diagnostics.png
 reports/*.json
 reports/*.csv
 
