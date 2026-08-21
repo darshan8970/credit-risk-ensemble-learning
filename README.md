@@ -1,252 +1,349 @@
 # Credit Risk Ensemble Learning
 
-A machine learning project for credit-risk classification using ensemble learning techniques and the UCI German Credit dataset.
+An end-to-end machine learning project for **credit-risk classification using ensemble learning**. The project trains and compares Random Forest, Bagging, and AdaBoost models, evaluates their performance using multiple metrics, and provides an interactive **Streamlit-based credit risk assessment platform**.
 
-> 🚧 **Status: Under Active Development**
+## 🚀 Overview
 
-## Overview
-
-This project focuses on building a reproducible machine learning workflow for credit-risk classification.
-
-The current implementation covers:
-
-- Data ingestion and validation
-- Feature preprocessing
-- Numerical feature scaling
-- Categorical feature encoding
-- Ensemble model training
-- Hyperparameter tuning
-- Model evaluation
-- Statistical analysis
-- Automated testing
-- Experiment artifacts and reports
-
-The project is being developed incrementally with an emphasis on clean structure, reproducibility, testing, and clear documentation.
-
-## Models
-
-The project currently evaluates the following ensemble learning algorithms:
-
-- **Random Forest**
-- **Bagging**
-- **AdaBoost**
-
-## Dataset
-
-The project uses the **German Credit dataset**.
-
-The dataset is processed through the project's data ingestion and preprocessing pipeline before being used for model training and evaluation.
-
-Local dataset files are excluded from version control to keep the repository lightweight and reproducible.
-
-## Machine Learning Workflow
-
-The project follows the following workflow:
+The system takes applicant credit information and uses trained ensemble models to estimate credit-risk likelihood.
 
 ```text
-Dataset
-   ↓
-Data Loading & Validation
-   ↓
-Data Preprocessing
-   ↓
-Train/Test Split
-   ↓
-Model Training & Hyperparameter Tuning
-   ↓
+Credit Dataset
+      ↓
+Data Loading
+      ↓
+Preprocessing
+      ↓
+Model Training & Tuning
+      ↓
 Model Evaluation
-   ↓
-Statistical Analysis
-   ↓
-Reports & Visualizations
+      ↓
+Saved Models
+      ↓
+Credit Risk Prediction
+      ↓
+Streamlit Web Application
 ```
 
-### 1. Data Ingestion
+The project is built as a modular ML pipeline rather than a single training script, making each stage reusable and testable.
 
-Loads and validates the German Credit dataset using the project's data-loading module.
+---
 
-### 2. Data Preprocessing
+## ✨ Features
 
-Prepares the dataset for machine learning by:
+* End-to-end credit-risk classification pipeline
+* Numerical and categorical feature preprocessing
+* Feature scaling and encoding
+* Random Forest, Bagging, and AdaBoost models
+* Hyperparameter tuning
+* ROC-AUC and PR-AUC evaluation
+* Accuracy, Precision, Recall and F1-Score
+* Confusion matrices and ROC/PR curves
+* Feature importance analysis
+* Statistical hypothesis testing
+* Saved model and preprocessing artifacts
+* Single and batch prediction support
+* Automatic saved-model discovery
+* Automated pytest test suite
+* Interactive Streamlit web application
+* Model diagnostics dashboard
 
-- Separating features and target
-- Identifying numerical and categorical features
-- Scaling numerical features
-- Encoding categorical features
+---
 
-### 3. Model Training
+## 🤖 Machine Learning Models
 
-Trains and tunes the ensemble learning models:
+| Model             |    ROC-AUC |  Accuracy |  F1-Score |
+| ----------------- | ---------: | --------: | --------: |
+| **Random Forest** | **0.8058** | **78.0%** | **60.7%** |
+| AdaBoost          |     0.7930 |     77.5% |     58.7% |
+| Bagging           |     0.7842 |     75.0% |     46.8% |
 
-- Random Forest
-- Bagging
-- AdaBoost
+### Best Performing Model
 
-### 4. Model Evaluation
+**Random Forest** currently achieves the highest ROC-AUC of **0.8058** among the three evaluated ensemble models.
 
-Models are evaluated using classification metrics including:
+---
 
-- Accuracy
-- Precision
-- Recall
-- F1-Score
-- ROC-AUC
-- PR-AUC
-- Confusion Matrix
+## 🌐 Web Application
 
-The project also generates evaluation visualizations such as ROC curves, Precision-Recall curves, and confusion matrices.
+The project includes a Streamlit interface called **CreditWise AI**, designed as a credit-risk assessment workspace.
 
-### 5. Statistical Analysis
+### Credit Risk Assessment
 
-Statistical hypothesis testing is used to compare model performance and determine whether observed differences between models are meaningful.
+The assessment page allows users to enter applicant and loan information and compare predictions from the trained ensemble models.
 
-### 6. Testing
+![Credit Risk Assessment](assets/credit-risk-assessment.png)
 
-The project includes automated tests for important components of the machine learning pipeline.
+The interface provides:
 
-The test suite covers:
+* Financial account information
+* Loan request details
+* Applicant profile
+* Benchmark applicant personas
+* Ensemble prediction results
+* Individual model probabilities
+* Overall risk interpretation
 
-- Configuration
-- Data loading
-- Preprocessing
-- Evaluation
-- Training pipeline
+The right side of the interface presents the **Decision Intelligence** section, allowing users to see how the individual ensemble models assess the same applicant.
 
-## Project Structure
+### Model Diagnostics
+
+The diagnostics dashboard provides visual analysis of model performance.
+
+![Model Diagnostics](assets/model-diagnostics.png)
+
+It includes:
+
+* ROC curve comparison
+* Precision-Recall curves
+* Confusion matrices
+* Feature importance
+* Hypothesis testing results
+
+---
+
+## 📊 Evaluation
+
+The models are evaluated using multiple metrics rather than accuracy alone:
+
+* **Accuracy** — overall prediction correctness
+* **Precision** — correctness of positive predictions
+* **Recall** — ability to identify positive cases
+* **F1-Score** — balance between precision and recall
+* **ROC-AUC** — overall ranking/discrimination performance
+* **PR-AUC** — precision-recall performance
+
+The current evaluation shows Random Forest performing best in ROC-AUC.
+
+---
+
+## 📁 Project Structure
 
 ```text
 credit-risk-ensemble-learning/
 │
-├── assets/                    # Generated visualizations
-├── data/                      # Local dataset files
-│   ├── raw/                   # Original dataset
-│   └── processed/             # Processed dataset
+├── app.py
+├── main.py
+├── README.md
+├── LICENSE
+├── requirements.txt
 │
-├── models/                    # Saved model artifacts
-├── reports/                   # Evaluation reports and results
+├── assets/
+│   ├── confusion_matrices.png
+│   ├── feature_importance.png
+│   ├── metrics_comparison_bar.png
+│   ├── precision_recall_curves.png
+│   ├── roc_curves.png
+│   ├── credit-risk-assessment.png
+│   └── model-diagnostics.png
+│
+├── data/
+│   ├── raw/
+│   │   └── german.data
+│   └── processed/
+│       └── german_credit_processed.csv
+│
+├── models/
+│   ├── adaboost_model.joblib
+│   ├── bagging_model.joblib
+│   ├── preprocessor.joblib
+│   └── random_forest_model.joblib
+│
+├── reports/
+│   ├── hypothesis_test_results.json
+│   ├── metrics_summary.json
+│   └── model_comparison.csv
 │
 ├── src/
-│   ├── __init__.py
-│   ├── config.py              # Project configuration
-│   ├── data_loader.py         # Dataset loading and validation
-│   ├── preprocessing.py       # Feature preprocessing
-│   ├── train.py               # Model training and tuning
-│   ├── evaluate.py            # Model evaluation
-│   └── hypothesis_testing.py  # Statistical model comparison
+│   ├── config.py
+│   ├── data_loader.py
+│   ├── evaluate.py
+│   ├── hypothesis_testing.py
+│   ├── predict.py
+│   ├── preprocessing.py
+│   ├── train.py
+│   └── __init__.py
 │
-├── tests/
-│   ├── test_config.py
-│   ├── test_data_loader.py
-│   ├── test_evaluate.py
-│   ├── test_preprocessing.py
-│   └── test_training.py
-│
-├── main.py                    # End-to-end ML pipeline entry point
-├── .gitignore
-├── LICENSE
-├── README.md
-└── requirements.txt
+└── tests/
+    ├── test_config.py
+    ├── test_data_loader.py
+    ├── test_evaluate.py
+    ├── test_predict.py
+    ├── test_preprocessing.py
+    └── test_training.py
 ```
 
-## How to Run
+### Important modules
 
-### 1. Clone the Repository
+| Module                  | Responsibility                                  |
+| ----------------------- | ----------------------------------------------- |
+| `data_loader.py`        | Loads and validates the dataset                 |
+| `preprocessing.py`      | Prepares numerical and categorical features     |
+| `train.py`              | Trains and tunes ensemble models                |
+| `evaluate.py`           | Calculates metrics and generates visualizations |
+| `hypothesis_testing.py` | Performs statistical model comparison           |
+| `predict.py`            | Handles model loading and predictions           |
+| `app.py`                | Streamlit web application                       |
+| `main.py`               | Runs the ML pipeline                            |
 
-```bash
-git clone <your-github-repository-url>
-cd credit-risk-ensemble-learning
-```
+---
 
-### 2. Install Dependencies
+## 🛠️ Tech Stack
 
-Install the required Python packages:
+**Language**
+
+* Python
+
+**Machine Learning**
+
+* Scikit-learn
+* Random Forest
+* Bagging
+* AdaBoost
+
+**Data Processing**
+
+* Pandas
+* NumPy
+
+**Visualization**
+
+* Matplotlib
+* Seaborn
+
+**Web Application**
+
+* Streamlit
+
+**Testing**
+
+* Pytest
+
+**Model Persistence**
+
+* Joblib
+
+---
+
+## ▶️ Run the Project
+
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the Complete ML Pipeline
-
-Run the main pipeline from the project root:
+### 2. Run the ML pipeline
 
 ```bash
 python main.py
 ```
 
-The pipeline performs:
+This runs the data processing, model training, evaluation, and statistical analysis pipeline.
 
-1. Data loading
-2. Data preprocessing
-3. Model training and hyperparameter tuning
-4. Model evaluation
-5. Statistical hypothesis testing
+### 3. Launch the web application
 
-Generated reports and visualizations are stored in the project's output directories.
+```bash
+streamlit run app.py
+```
 
-### 4. Run the Test Suite
+The Streamlit application then loads the saved models and preprocessing pipeline for interactive prediction.
 
-Run all automated tests:
+---
+
+## 🧪 Testing
+
+The project includes automated tests covering configuration, data loading, preprocessing, training, evaluation, and prediction.
+
+Run the complete test suite:
 
 ```bash
 python -m pytest tests/
 ```
 
-To run a specific test file:
+Current test status:
 
-```bash
-python -m pytest tests/test_preprocessing.py
+```text
+26 passed
 ```
 
-## Reproducibility
+---
 
-The project is structured to support reproducible machine learning experiments through:
+## 📦 Generated Artifacts
 
-- Centralized configuration
-- Consistent preprocessing
-- Separate training and evaluation stages
-- Automated testing
-- Organized output artifacts
-- Version-controlled source code
+### Trained Models
 
-## Project Status
+```text
+models/
+```
 
-🚧 **Under Active Development**
+Contains the trained ensemble models and preprocessing artifact.
 
-Current development focuses on improving:
+### Reports
 
-- Model training and validation
-- Evaluation and statistical analysis
-- Automated test coverage
-- Experiment reproducibility
-- Documentation
-- Model inference and application capabilities
+```text
+reports/
+```
 
-Additional improvements will be added as the project progresses.
+Contains:
 
-## Tech Stack
+* Model comparison metrics
+* Evaluation summary
+* Statistical hypothesis-test results
 
-**Programming Language**
-- Python
+### Visualizations
 
-**Machine Learning**
-- Scikit-learn
-- Ensemble Learning
-- Classification
-- Hyperparameter Tuning
-- Model Evaluation
-- Statistical Analysis
+```text
+assets/
+```
 
-**Data Processing**
-- Pandas
-- NumPy
+Contains:
 
-**Visualization**
-- Matplotlib
-- Seaborn
+* ROC curves
+* Precision-Recall curves
+* Confusion matrices
+* Feature importance
+* Model comparison visualization
 
-**Testing**
-- Pytest
+---
 
-## License
+## 🎯 Project Objective
 
-This project is licensed under the MIT License.
+The goal of this project is to demonstrate a complete **machine learning engineering workflow** rather than simply training a classification model.
+
+It combines:
+
+**Data → Preprocessing → Training → Evaluation → Statistical Analysis → Model Persistence → Prediction → Web Application**
+
+This makes the project suitable for demonstrating practical skills in **machine learning, Python development, model evaluation, testing, and deployment-oriented application development**.
+
+---
+
+## 🔮 Future Improvements
+
+Planned future improvements include:
+
+* Replace the current dataset with a larger and more representative credit-risk dataset
+* Adapt the preprocessing pipeline to the new dataset
+* Expand the feature set
+* Improve model explainability
+* Add additional ensemble models
+* Improve probability calibration
+* Add API-based model serving
+* Containerize and deploy the application
+* Add model monitoring and drift detection
+
+---
+
+## ⚠️ Disclaimer
+
+This project is intended for **educational and portfolio purposes**.
+
+The predictions should not be considered actual banking or lending decisions. A production credit-risk system would require additional validation, regulatory compliance, fairness analysis, security, auditability, and human oversight.
+
+---
+
+## 👨‍💻 Project Status
+
+**Current Status: Complete Working ML Application**
+
+The current version includes the complete machine-learning pipeline, trained ensemble models, evaluation and statistical analysis, automated testing, reusable prediction utilities, and an interactive Streamlit web application.
