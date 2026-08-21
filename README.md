@@ -71,7 +71,7 @@ The project includes a Streamlit interface called **CreditWise AI**, designed as
 
 The assessment page allows users to enter applicant and loan information and compare predictions from the trained ensemble models.
 
-![Credit Risk Assessment](assets/credit-risk-assessment.png)
+![Credit Risk Assessment](./assets/credit-risk-assessment.png)
 
 The interface provides:
 
@@ -89,7 +89,7 @@ The right side of the interface presents the **Decision Intelligence** section, 
 
 The diagnostics dashboard provides visual analysis of model performance.
 
-![Model Diagnostics](assets/model-diagnostics.png)
+![Model Diagnostics](./assets/model-diagnostics.png)
 
 It includes:
 
